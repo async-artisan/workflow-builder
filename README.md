@@ -42,6 +42,7 @@
 - 模糊需求访谈、理解回放和输出样例确认；清晰用户可跳过访谈。
 - 参数化 SOP 模板与 SOP → Agent Skill 生成器。
 - 平台选择矩阵和可插拔适配器契约。
+- 外部工具、MCP、API、CLI 与已有 Skill 的能力组合和降级指导。
 - 运行清单、证据状态推导、副作用回执与恢复检查。
 - 只读、可逆写入、受限写入的风险分级与预算停止。
 - `release_id` 内容绑定、签核版本校验和依赖漂移检测。
@@ -113,6 +114,8 @@ build/readonly-minutes/SKILL.md
 ```
 
 需求还不清楚时可以直接说“我想自动化，但不知道从哪开始”。Skill 会先询问具体重复事务，再通过理解回放和输出样例确认首版；不会要求你先学会写流程或提示词。完整示例见 [模糊需求到可确认首版](examples/discovery/vague-to-mvp.md)，引导规范见 [需求发现访谈](references/discovery-interview.md)。
+
+需要调用外部工具或其他 Skill 时，按 [工具与 Skill 能力编排](references/capability-composition.md) 复用现有能力、验证调用并设计降级；[软件测试组合示例](examples/software-testing/capability-plan.md) 展示文档、表格、浏览器和报告 Skill 如何协作。
 
 ### 从 SOP 生成 Skill
 

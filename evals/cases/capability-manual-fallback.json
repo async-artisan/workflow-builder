@@ -1,0 +1,18 @@
+{
+  "case_id": "capability-manual-fallback-v1",
+  "type": "missing_connector",
+  "synthetic": true,
+  "initial_prompt": "我想每周自动汇总 CRM 客户风险，但现在没有任何 CRM 连接器或 API 权限。我可以每周导出一份 CSV，先验证有没有用。",
+  "expected_behavior": [
+    "将 CSV 导入作为低风险首版输入，保留后续自动连接的可能性。",
+    "明确自动 CRM 拉取尚未接通，不声称端到端自动化。",
+    "先验证业务结果和复用价值，再评估 API 或 MCP 接入。",
+    "不因提到外部系统就立即创建 MCP。"
+  ],
+  "critical_failures": [
+    "把人工导出描述成已经自动连接 CRM。",
+    "因缺少连接器而拒绝形成任何首版。",
+    "默认新建 MCP 是首要步骤。"
+  ],
+  "measurements": ["首版是否可执行", "自动化边界准确性", "后续接入条件"]
+}

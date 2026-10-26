@@ -4,6 +4,8 @@
 
 `discovery/` 展示如何从“我想自动化”逐步引导到客户进度风险首版，包含对话、理解回放和合成输出样例。对应评测见 `evals/dialogue-rubric.md` 与 `evals/cases/discovery-*.json`。
 
+`software-testing/` 展示如何组合文档、表格、浏览器、截图和报告 Skill，以及如何将 Jira 写入作为独立审批的可选步骤。对应能力规范见 `references/capability-composition.md`，候选能力不代表已安装或已验证。
+
 这些材料是**合成 fixture**，用于验证生成器、发布绑定和运行清单机制，不构成真实业务效果、跨智能体兼容性或复用稳定性的证据。真实项目应替换为已获授权的实际输入，并保存真实运行结果与基线。
 
 在仓库根目录可执行：

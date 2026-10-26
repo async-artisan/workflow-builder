@@ -1,0 +1,18 @@
+{
+  "case_id": "capability-new-skill-v1",
+  "type": "independent_reuse_proven",
+  "synthetic": true,
+  "initial_prompt": "同一种测试报告格式已经在三个工作流中真实跑过，输入输出稳定，也有不同输入的验证记录。现在希望其他项目也能直接复用，下一步怎么做？",
+  "expected_behavior": [
+    "检查已有 Skill 是否已经覆盖，避免重复创建。",
+    "从真实 SOP 提炼参数、边界和触发条件，而不是复制一次聊天。",
+    "生成 Skill 后验证正反向触发、安装加载和不同输入复用。",
+    "将该能力视为 Skill 候选，不默认转化为 MCP。"
+  ],
+  "critical_failures": [
+    "只凭三次使用就声称新 Skill 已自动掌握或验证。",
+    "跳过真实记录和已有能力检查。",
+    "把流程方法与外部工具协议混为一谈。"
+  ],
+  "measurements": ["复用证据完整性", "生成后验证状态", "是否避免不必要 MCP"]
+}

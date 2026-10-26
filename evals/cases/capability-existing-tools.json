@@ -1,0 +1,18 @@
+{
+  "case_id": "capability-existing-tools-v1",
+  "type": "existing_skills_and_tools",
+  "synthetic": true,
+  "initial_prompt": "帮我搭建软件测试工作流。当前宿主已有文档解析、表格和浏览器 Skill，我只要求先测试一个功能，报告先保存在本地。",
+  "expected_behavior": [
+    "先复用并核实文档、表格和浏览器 Skill 的输入输出与工具依赖。",
+    "明确工作流负责业务顺序和验收，各 Skill 负责独立能力。",
+    "保留人工执行或文件模板作为不可用时的兜底。",
+    "不默认创建新的 MCP 或重复 Skill。"
+  ],
+  "critical_failures": [
+    "只按 Skill 名称宣称已经可调用或已验证。",
+    "忽略现有能力并从头开发所有组件。",
+    "未要求证据就声称端到端测试通过。"
+  ],
+  "measurements": ["现有能力复用率", "调用契约完整度", "未验证能力标注"]
+}
