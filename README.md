@@ -1,6 +1,6 @@
 # Workflow Builder
 
-一个面向 Codex 与 Agent Skills 的通用业务工作流搭建、执行、审计与复用 Skill。
+一个面向任何智能体的通用业务工作流搭建、执行、审计与复用 Skill。核心采用 Markdown、开放 Agent Skills 结构和可选 Python 标准库脚本，不绑定 Codex、Claude 或任何特定模型、平台。
 
 它把真实业务目标落实为可执行、可检查、可恢复、可复用的工作流，并严格区分设计、试跑、人工验收、复用验证和交接验证，避免把模板或 AI 自评当作运行证据。
 
@@ -32,27 +32,27 @@ workflow-builder/
     └── sop_to_skill.py
 ```
 
-## 安装
+## 接入任意智能体
 
-将本仓库目录复制或链接到 Codex Skills 目录：
+### 支持 Agent Skills 的宿主
+
+将完整目录复制、链接或导入宿主的 Skills 目录，由宿主读取 `SKILL.md` 的 `name` 和 `description` 进行触发，并按需加载 `references/`、`assets/` 和 `scripts/`。
+
+例如，Codex 可放在 `~/.codex/skills/workflow-builder/`，Claude Code 可放在 `~/.claude/skills/workflow-builder/`；其他智能体按各自的 Skill 发现或导入机制接入。`agents/openai.yaml` 只是可选的 OpenAI/Codex 展示适配，不是核心依赖，其他宿主可以忽略。
+
+### 仅支持 Markdown 指令的宿主
+
+将 `SKILL.md` 作为自定义指令、规则或系统提示的一部分，并确保智能体能够访问相关参考文件。不能自动加载链接资源时，按任务需要附上对应 `references/` 内容；没有脚本执行能力时，仍可使用 SOP、平台适配和验收签核方法。
+
+### 调用示例
+
+在支持 Skill 调用的环境中，可使用宿主对应的调用语法；也可以直接提出目标：
 
 ```text
-~/.codex/skills/workflow-builder/
+请使用 workflow-builder，帮我把这个重复业务任务搭建为可验证、可复用的工作流。
 ```
 
-在 Windows 上通常为：
-
-```text
-C:/Users/<用户名>/.codex/skills/workflow-builder/
-```
-
-新建 Codex 会话后，可这样调用：
-
-```text
-请使用 $workflow-builder，帮我把这个重复业务任务搭建为可验证、可复用的工作流。
-```
-
-也可以请求设计、执行或审计：
+在 Codex 中可写成 `$workflow-builder`。还可以请求设计、执行或审计：
 
 ```text
 请使用 $workflow-builder，审计现有流程能否闭环，并给出有证据的问题清单。
