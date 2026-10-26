@@ -1,24 +1,153 @@
-# Workflow Builder
+<div align="center">
 
-一个面向任何智能体的通用业务工作流搭建、执行、审计与复用 Skill。核心采用 Markdown、开放 Agent Skills 结构和可选 Python 标准库脚本，不绑定 Codex、Claude 或任何特定模型、平台。
+# workflow-builder
 
-它把真实业务目标落实为可执行、可检查、可恢复、可复用的工作流，并严格区分设计、试跑、人工验收、复用验证和交接验证，避免把模板或 AI 自评当作运行证据。
+**面向任何智能体的业务工作流搭建、执行、审计与复用 Skill：让结果可验收、风险可控制、证据可追溯。**
 
-## 能力
+[![构建状态](https://github.com/async-artisan/workflow-builder/actions/workflows/validate.yml/badge.svg)](https://github.com/async-artisan/workflow-builder/actions/workflows/validate.yml)
+[![版本状态](https://img.shields.io/badge/release-untagged-lightgrey)](https://github.com/async-artisan/workflow-builder/releases)
+[![许可证](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 
-- 设计 / 搭建 / 执行 / 审计四种请求路由
-- 工作流卡片、最小闭环与运行前就绪检查
-- 人工门禁、异常恢复、权限边界与证据分级
-- 平台选择矩阵和可插拔平台适配器契约
-- 参数化 SOP 模板与 SOP → Agent Skill 生成器
-- 人工意见、检查证据和签核记录模板
-- 结构化运行清单、证据状态推导和副作用对账校验
-- 基线、业务 oracle、阈值和单位验收成本评测方法
-- 只读 / 可逆写入 / 受限写入的风险分级与预算停止
-- `release_id` 内容绑定、签核版本校验和漂移检测
-- 知识库检索、版本更新与跨平台迁移验证
+![workflow-builder 从设计、试跑、证据校验到复用的流程图](docs/images/workflow-overview.svg)
+
+</div>
+
+> 最近更新：2026-10-26 ｜ 当前状态：持续开发，尚未创建正式 GitHub Release。
 
 ## 目录
+
+- [项目简介](#项目简介)
+- [核心能力](#核心能力)
+- [快速开始](#快速开始)
+- [环境要求](#环境要求)
+- [安装与接入](#安装与接入)
+- [常用用法](#常用用法)
+- [项目结构](#项目结构)
+- [证据边界](#证据边界)
+- [开发与回归](#开发与回归)
+- [FAQ](#faq)
+- [贡献与社区](#贡献与社区)
+- [许可证](#许可证)
+
+## 项目简介
+
+`workflow-builder` 帮助智能体把重复业务任务转化为可执行、可检查、可恢复、可复用的工作流。它适用于需要流程设计、真实试跑、人工验收、异常恢复、效果评测或流程审计的用户。
+
+核心采用 Markdown、开放 Agent Skills 目录结构和可选 Python 标准库脚本，**不绑定 Codex、Claude、WorkBuddy 或任何特定模型与平台**。没有脚本执行能力的宿主仍可使用其中的 SOP、风险控制和验收方法。
+
+## 核心能力
+
+- 设计、搭建、执行、审计四种请求路由，避免为一次性任务强行建流程。
+- 参数化 SOP 模板与 SOP → Agent Skill 生成器。
+- 平台选择矩阵和可插拔适配器契约。
+- 运行清单、证据状态推导、副作用回执与恢复检查。
+- 只读、可逆写入、受限写入的风险分级与预算停止。
+- `release_id` 内容绑定、签核版本校验和依赖漂移检测。
+- 基线、业务 oracle、通过阈值和单位验收成本评测方法。
+- 人工意见、检查证据、签核记录及知识库维护方法。
+
+## 快速开始
+
+无需安装第三方 Python 包。克隆后运行只读合成示例，生成一个独立 Skill：
+
+```bash
+git clone https://github.com/async-artisan/workflow-builder.git
+cd workflow-builder
+python scripts/sop_to_skill.py examples/readonly-minutes/workflow.sop.md --check
+python scripts/sop_to_skill.py examples/readonly-minutes/workflow.sop.md --output-dir build
+```
+
+成功后查看：
+
+```text
+build/readonly-minutes/SKILL.md
+```
+
+这只证明示例 SOP 可以校验并生成 Skill，不代表已经安装、加载或通过真实业务验收。
+
+## 环境要求
+
+| 项目 | 要求 | 是否必需 |
+| --- | --- | --- |
+| 智能体宿主 | 能读取 Markdown；完整渐进加载需支持 Agent Skills 或等效机制 | 必需 |
+| Python | 3.9+，仅使用标准库 | 仅运行生成、发布绑定和校验工具时需要 |
+| Git | 用于克隆和源码更新 | 仅源码安装时需要 |
+| 操作系统 | 使用宿主支持的 Windows、macOS 或 Linux；CI 当前在 Ubuntu 上验证 | 按宿主环境 |
+
+## 安装与接入
+
+### 支持 Agent Skills 的宿主
+
+将完整仓库目录复制、链接或导入宿主的 Skills 目录：
+
+| 宿主 | 用户级示例路径 |
+| --- | --- |
+| Codex | `~/.codex/skills/workflow-builder/` |
+| Claude Code | `~/.claude/skills/workflow-builder/` |
+| WorkBuddy | `~/.workbuddy/skills/workflow-builder/` |
+
+其他智能体按各自的 Skill 发现或导入机制接入。`agents/openai.yaml` 只是可选的 OpenAI/Codex 展示适配，其他宿主可以忽略。
+
+### 仅支持 Markdown 指令的宿主
+
+将 `SKILL.md` 作为自定义指令、规则或系统提示的一部分，并按任务提供相关 `references/` 内容。无法自动读取链接资源时，需要手动附上对应文件。
+
+### 接入失败排查
+
+先确认 `SKILL.md` 位于技能目录根部，而非多套一层仓库目录；再检查宿主是否已重新扫描 Skills。若宿主不支持自动发现，直接显式提供 `SKILL.md` 内容。
+
+## 常用用法
+
+### 通过自然语言调用
+
+```text
+请使用 workflow-builder，帮我把这个重复业务任务搭建为可验证、可复用的工作流。
+```
+
+在 Codex 中可使用 `$workflow-builder`。也可以直接要求审计：
+
+```text
+请使用 workflow-builder，审计现有流程能否闭环，并给出有证据的问题清单。
+```
+
+### 从 SOP 生成 Skill
+
+复制 `assets/sop.template.md` 并填写业务内容，然后执行：
+
+```bash
+python scripts/sop_to_skill.py /path/to/example.sop.md --check
+python scripts/sop_to_skill.py /path/to/example.sop.md --output-dir /path/to/skills
+```
+
+`/path/to/` 需替换为实际路径。参数如下：
+
+| 参数 | 含义 | 默认值 |
+| --- | --- | --- |
+| `--check` | 只校验 SOP，不写文件 | 关闭 |
+| `--output-dir` | Skill 输出根目录 | 生成模式必填 |
+| `--force` | 允许覆盖同名生成文件 | 关闭 |
+
+格式规范见 [标准 SOP 与 Skill 生成](references/sop-format.md)。
+
+### 绑定发布并校验运行证据
+
+以下命令使用仓库内示例，可直接执行：
+
+```bash
+python scripts/build_release.py examples/readonly-minutes/workflow.sop.md examples/readonly-minutes/input.md examples/readonly-minutes/expected.md evals/cases/readonly-minutes.json --base-dir . --output build/release.json
+python scripts/build_release.py --check build/release.json --base-dir .
+```
+
+实际运行时，将生成的 `release` 对象嵌入运行清单，再执行：
+
+```bash
+python scripts/validate_run.py /path/to/run.json --json
+```
+
+`/path/to/run.json` 需替换为已填写的运行清单；可从 `assets/run-manifest.template.json` 复制。校验器会拒绝无证据完成、旧发布签核、未知外部结果直接重试和预算超限等不一致状态。
+
+## 项目结构
 
 ```text
 workflow-builder/
@@ -28,86 +157,19 @@ workflow-builder/
 ├── references/                # 方法、评测、风险、发布与平台规范
 ├── scripts/                   # 生成、发布绑定和证据校验工具
 ├── evals/                     # 触发测试与业务评测用例
-├── examples/                  # 合成端到端示例，不冒充真实效果
+├── examples/                  # 合成端到端示例
 ├── tests/                     # 正反向回归测试
+├── docs/images/               # README 示意图
 └── .github/workflows/         # 自动校验
 ```
 
-## 接入任意智能体
+## 证据边界
 
-### 支持 Agent Skills 的宿主
-
-将完整目录复制、链接或导入宿主的 Skills 目录，由宿主读取 `SKILL.md` 的 `name` 和 `description` 进行触发，并按需加载 `references/`、`assets/` 和 `scripts/`。
-
-例如，Codex 可放在 `~/.codex/skills/workflow-builder/`，Claude Code 可放在 `~/.claude/skills/workflow-builder/`；其他智能体按各自的 Skill 发现或导入机制接入。`agents/openai.yaml` 只是可选的 OpenAI/Codex 展示适配，不是核心依赖，其他宿主可以忽略。
-
-### 仅支持 Markdown 指令的宿主
-
-将 `SKILL.md` 作为自定义指令、规则或系统提示的一部分，并确保智能体能够访问相关参考文件。不能自动加载链接资源时，按任务需要附上对应 `references/` 内容；没有脚本执行能力时，仍可使用 SOP、平台适配和验收签核方法。
-
-### 调用示例
-
-在支持 Skill 调用的环境中，可使用宿主对应的调用语法；也可以直接提出目标：
-
-```text
-请使用 workflow-builder，帮我把这个重复业务任务搭建为可验证、可复用的工作流。
-```
-
-在 Codex 中可写成 `$workflow-builder`。还可以请求设计、执行或审计：
-
-```text
-请使用 $workflow-builder，审计现有流程能否闭环，并给出有证据的问题清单。
-```
-
-## 参数化 SOP 与 Skill 生成
-
-复制 `assets/sop.template.md`，填写业务目标、参数、步骤、人工门禁、输出和验证要求。格式说明见 `references/sop-format.md`。
-
-在仓库根目录执行：
-
-```bash
-# 只检查 SOP，不写文件
-python scripts/sop_to_skill.py /path/to/example.sop.md --check
-
-# 生成 <output-dir>/<name>/SKILL.md
-python scripts/sop_to_skill.py /path/to/example.sop.md --output-dir /path/to/skills
-```
-
-生成器仅使用 Python 标准库。默认不覆盖已有 `SKILL.md`；只有明确需要覆盖时才使用 `--force`。
-
-“Skill 已生成”不代表已经安装、加载或运行验证通过。仍需在目标 Agent 环境中完成真实试跑和不同输入复跑。
-
-## 运行证据、发布绑定与评测
-
-复制 `assets/run-manifest.template.json` 记录运行。生成内容绑定的发布信息，再校验证据状态：
-
-```bash
-# 将实际依赖绑定到 release_id
-python scripts/build_release.py workflow.sop.md SKILL.md \
-  --base-dir . --output release.json
-
-# 检查依赖是否漂移
-python scripts/build_release.py --check release.json --base-dir .
-
-# 从证据推导设计、试跑、验收、复用和交接状态
-python scripts/validate_run.py /path/to/run.json --json
-```
-
-校验器会拒绝无证据完成、旧发布签核、未知外部结果直接重试和预算超限等不一致状态。它验证的是证据关联，不会自动证明证据文件真实或审批人有权限。
-
-评测方法见 `references/evaluation.md`，风险与预算见 `references/risk-and-budgets.md`。`examples/readonly-minutes/` 和 `evals/cases/readonly-minutes.json` 提供合成示例；合成 fixture 不能冒充真实业务效果。
-
-## 验收与签核
-
-复制 `assets/verification-signoff.template.md` 到业务项目，记录：
-
-- 检查方法、实际结果与证据位置
-- 问题严重度、复现方式和修订结果
-- 人工验收原话及处理记录
-- 签核版本、范围、条件和授权动作
-- 各证据状态及后续行动
-
-沉默不视为批准，Agent 互审不替代人工业务验收。实质变更后，需要重新验收相关环节。
+- “Skill 已生成”不等于已安装、已加载或已验证运行。
+- `validate_run.py` 校验证据关联，不自动证明证据真实或审批人有权限。
+- 合成 fixture 用于验证工具机制，不构成真实业务效果或跨宿主兼容性证据。
+- “已复用验证”需要未见输入、实际基线和预先冻结的通过阈值。
+- 沉默不视为批准，Agent 互审不替代人工业务验收。
 
 ## 开发与回归
 
@@ -118,6 +180,32 @@ python -m unittest discover -s tests -v
 
 GitHub Actions 会检查结构、内部链接、JSON、Python 语法、SOP 生成和正反向工具用例。跨宿主触发与真实业务效果仍需在对应环境中单独验证。
 
+## FAQ
+
+### 这是 Codex 专用 Skill 吗？
+
+不是。核心面向任何能读取 Markdown 的智能体。Codex、Claude Code 和 WorkBuddy 只是示例接入环境，`agents/openai.yaml` 也可被其他宿主忽略。
+
+### 没有 Python 还能使用吗？
+
+可以使用 SOP、平台适配、风险控制和验收签核方法。SOP 生成、发布绑定、运行清单校验及自动测试需要 Python 3.9+。
+
+### SOP 校验通过，是否说明业务工作流可靠？
+
+不说明。校验只证明结构有效；业务可靠性还需要真实输入、业务断言、异常验证、人工验收和不同输入复跑。
+
+### 运行清单校验通过，是否说明证据一定真实？
+
+不说明。工具检查状态与证据是否一致，原始证据、审批权限和外部系统状态仍需回读或向负责人核实。
+
+### 如何升级源码安装的旧版本？
+
+先备份自己修改的 SOP、模板和运行记录；在干净克隆中执行 `git pull`，再运行开发与回归命令。若宿主有技能缓存，更新后重新扫描或新建会话。
+
+## 贡献与社区
+
+欢迎通过 [GitHub Issues](https://github.com/async-artisan/workflow-builder/issues) 报告问题、讨论需求或分享真实评测结果，也欢迎提交 [Pull Requests](https://github.com/async-artisan/workflow-builder/pulls)。提交前请运行“开发与回归”中的两条命令；涉及验证逻辑时同时补充正向和反向测试。
+
 ## 许可证
 
-[MIT](LICENSE)
+本项目基于 [MIT License](LICENSE) 发布。使用、修改和再分发时需保留原版权及许可证声明；软件按“原样”提供，不附带明示或默示担保。

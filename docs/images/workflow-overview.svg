@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480" role="img" aria-labelledby="title desc">
+  <title id="title">workflow-builder 从设计到复用的验证流程</title>
+  <desc id="desc">设计业务工作流，真实试跑，校验运行证据，再进行复用和交接。</desc>
+  <rect width="1200" height="480" fill="#F8FAFC"/>
+  <text x="600" y="64" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="600" fill="#0F172A">从业务目标到可验证复用</text>
+  <text x="600" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#475569">宿主无关的 SOP、运行证据与效果评测</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#64748B" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <g font-family="Arial, sans-serif">
+    <rect x="55" y="155" width="235" height="150" rx="16" fill="#E6F1FB" stroke="#185FA5" stroke-width="2"/>
+    <text x="172" y="198" text-anchor="middle" font-size="24" font-weight="600" fill="#0C447C">1. 设计</text>
+    <text x="172" y="236" text-anchor="middle" font-size="17" fill="#185FA5">目标、输入、人工门禁</text>
+    <text x="172" y="266" text-anchor="middle" font-size="17" fill="#185FA5">风险与预算</text>
+    <path d="M290 230H335" fill="none" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="345" y="155" width="235" height="150" rx="16" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2"/>
+    <text x="462" y="198" text-anchor="middle" font-size="24" font-weight="600" fill="#085041">2. 试跑</text>
+    <text x="462" y="236" text-anchor="middle" font-size="17" fill="#0F6E56">真实输入与检查产物</text>
+    <text x="462" y="266" text-anchor="middle" font-size="17" fill="#0F6E56">异常与副作用回执</text>
+    <path d="M580 230H625" fill="none" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="635" y="155" width="235" height="150" rx="16" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
+    <text x="752" y="198" text-anchor="middle" font-size="24" font-weight="600" fill="#854F0B">3. 证据校验</text>
+    <text x="752" y="236" text-anchor="middle" font-size="17" fill="#BA7517">release_id 与签核绑定</text>
+    <text x="752" y="266" text-anchor="middle" font-size="17" fill="#BA7517">状态由证据推导</text>
+    <path d="M870 230H915" fill="none" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="925" y="155" width="220" height="150" rx="16" fill="#EEEDFE" stroke="#534AB7" stroke-width="2"/>
+    <text x="1035" y="198" text-anchor="middle" font-size="24" font-weight="600" fill="#3C3489">4. 复用</text>
+    <text x="1035" y="236" text-anchor="middle" font-size="17" fill="#534AB7">未见输入与基线</text>
+    <text x="1035" y="266" text-anchor="middle" font-size="17" fill="#534AB7">交接、灰度与回归</text>
+    <rect x="190" y="355" width="820" height="66" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+    <text x="600" y="395" text-anchor="middle" font-size="20" fill="#334155">已设计 ≠ 已试跑 ≠ 已人工验收 ≠ 已复用验证</text>
+  </g>
+</svg>
