@@ -1,11 +1,13 @@
+[English](README_en.md) | 简体中文
+
 <div align="center">
 
-# workflow-builder
+# Agent Workflow Builder
 
 **面向任何智能体的业务工作流搭建、执行、审计与复用 Skill：让结果可验收、风险可控制、证据可追溯。**
 
 [![构建状态](https://github.com/async-artisan/workflow-builder/actions/workflows/validate.yml/badge.svg)](https://github.com/async-artisan/workflow-builder/actions/workflows/validate.yml)
-[![版本状态](https://img.shields.io/badge/release-untagged-lightgrey)](https://github.com/async-artisan/workflow-builder/releases)
+[![版本状态](https://img.shields.io/github/v/release/async-artisan/workflow-builder?label=release)](https://github.com/async-artisan/workflow-builder/releases)
 [![许可证](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 
@@ -13,7 +15,7 @@
 
 </div>
 
-> 最近更新：2026-10-26 ｜ 当前状态：持续开发，尚未创建正式 GitHub Release。
+> 最近更新：2026-10-26 ｜ 当前版本：v0.1.0。
 
 ## 目录
 
@@ -74,10 +76,25 @@ build/readonly-minutes/SKILL.md
 | --- | --- | --- |
 | 智能体宿主 | 能读取 Markdown；完整渐进加载需支持 Agent Skills 或等效机制 | 必需 |
 | Python | 3.9+，仅使用标准库 | 仅运行生成、发布绑定和校验工具时需要 |
+| Node.js | 22.20+ | 仅通过 Skills CLI 安装时需要 |
 | Git | 用于克隆和源码更新 | 仅源码安装时需要 |
 | 操作系统 | 使用宿主支持的 Windows、macOS 或 Linux；CI 当前在 Ubuntu 上验证 | 按宿主环境 |
 
 ## 安装与接入
+
+### 通过 Skills CLI 安装
+
+在支持 Skills CLI 的项目中运行：
+
+```bash
+npx skills add async-artisan/workflow-builder
+```
+
+已验证该命令能够发现仓库中的 `workflow-builder`。按提示选择目标智能体和安装范围；Node.js 需为 22.20 或更高版本。参见 [Skills CLI 文档](https://github.com/vercel-labs/skills)。
+
+### 通过 Release ZIP 安装
+
+从 [Releases](https://github.com/async-artisan/workflow-builder/releases) 下载 `workflow-builder-v0.1.0.zip`，解压后将 `workflow-builder` 目录放入下表对应的 Skills 目录。ZIP 附带 SHA-256 文件，可在安装前核验下载完整性。
 
 ### 支持 Agent Skills 的宿主
 
