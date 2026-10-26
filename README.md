@@ -12,6 +12,10 @@
 - 平台选择矩阵和可插拔平台适配器契约
 - 参数化 SOP 模板与 SOP → Agent Skill 生成器
 - 人工意见、检查证据和签核记录模板
+- 结构化运行清单、证据状态推导和副作用对账校验
+- 基线、业务 oracle、阈值和单位验收成本评测方法
+- 只读 / 可逆写入 / 受限写入的风险分级与预算停止
+- `release_id` 内容绑定、签核版本校验和漂移检测
 - 知识库检索、版本更新与跨平台迁移验证
 
 ## 目录
@@ -19,17 +23,14 @@
 ```text
 workflow-builder/
 ├── SKILL.md
-├── agents/openai.yaml
-├── assets/
-│   ├── sop.template.md
-│   └── verification-signoff.template.md
-├── references/
-│   ├── workflow-method.md
-│   ├── platform-adapters.md
-│   ├── sop-format.md
-│   └── knowledge-base.md
-└── scripts/
-    └── sop_to_skill.py
+├── agents/openai.yaml          # 可选宿主适配
+├── assets/                    # SOP、运行清单与签核模板
+├── references/                # 方法、评测、风险、发布与平台规范
+├── scripts/                   # 生成、发布绑定和证据校验工具
+├── evals/                     # 触发测试与业务评测用例
+├── examples/                  # 合成端到端示例，不冒充真实效果
+├── tests/                     # 正反向回归测试
+└── .github/workflows/         # 自动校验
 ```
 
 ## 接入任意智能体
@@ -76,6 +77,26 @@ python scripts/sop_to_skill.py /path/to/example.sop.md --output-dir /path/to/ski
 
 “Skill 已生成”不代表已经安装、加载或运行验证通过。仍需在目标 Agent 环境中完成真实试跑和不同输入复跑。
 
+## 运行证据、发布绑定与评测
+
+复制 `assets/run-manifest.template.json` 记录运行。生成内容绑定的发布信息，再校验证据状态：
+
+```bash
+# 将实际依赖绑定到 release_id
+python scripts/build_release.py workflow.sop.md SKILL.md \
+  --base-dir . --output release.json
+
+# 检查依赖是否漂移
+python scripts/build_release.py --check release.json --base-dir .
+
+# 从证据推导设计、试跑、验收、复用和交接状态
+python scripts/validate_run.py /path/to/run.json --json
+```
+
+校验器会拒绝无证据完成、旧发布签核、未知外部结果直接重试和预算超限等不一致状态。它验证的是证据关联，不会自动证明证据文件真实或审批人有权限。
+
+评测方法见 `references/evaluation.md`，风险与预算见 `references/risk-and-budgets.md`。`examples/readonly-minutes/` 和 `evals/cases/readonly-minutes.json` 提供合成示例；合成 fixture 不能冒充真实业务效果。
+
 ## 验收与签核
 
 复制 `assets/verification-signoff.template.md` 到业务项目，记录：
@@ -87,6 +108,15 @@ python scripts/sop_to_skill.py /path/to/example.sop.md --output-dir /path/to/ski
 - 各证据状态及后续行动
 
 沉默不视为批准，Agent 互审不替代人工业务验收。实质变更后，需要重新验收相关环节。
+
+## 开发与回归
+
+```bash
+python scripts/check_repository.py
+python -m unittest discover -s tests -v
+```
+
+GitHub Actions 会检查结构、内部链接、JSON、Python 语法、SOP 生成和正反向工具用例。跨宿主触发与真实业务效果仍需在对应环境中单独验证。
 
 ## 许可证
 

@@ -1,0 +1,30 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check repository structure and links
+        run: python scripts/check_repository.py
+      - name: Run positive and negative tool tests
+        run: python -m unittest discover -s tests -v
+      - name: Validate SOP template and example
+        run: |
+          python scripts/sop_to_skill.py assets/sop.template.md --check
+          python scripts/sop_to_skill.py examples/readonly-minutes/workflow.sop.md --check
+      - name: Generate and inspect example Skill
+        run: |
+          python scripts/sop_to_skill.py examples/readonly-minutes/workflow.sop.md --output-dir build
+          test -s build/readonly-minutes/SKILL.md

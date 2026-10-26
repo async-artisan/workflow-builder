@@ -1,0 +1,79 @@
+{
+  "run_id": "run-example-001",
+  "run_state": "in_progress",
+  "workflow": {
+    "name": "example-workflow",
+    "version": "1.0.0"
+  },
+  "release": {
+    "release_id": "replace-with-build_release-output",
+    "files": [
+      {
+        "path": "workflow.sop.md",
+        "sha256": "replace-with-64-lowercase-hex-digest"
+      }
+    ]
+  },
+  "mode": "trial",
+  "risk_tier": "read_only",
+  "input": {
+    "digest": "replace-with-64-lowercase-hex-digest",
+    "source": "examples/input.md",
+    "synthetic": false
+  },
+  "steps": [
+    {
+      "step_id": "extract",
+      "state": "pending",
+      "attempt": 0,
+      "input_digest": null,
+      "output_digest": null,
+      "evidence": [],
+      "side_effect": "none",
+      "external_state": "not_attempted",
+      "side_effect_intent": null,
+      "idempotency_key": null,
+      "recovery": null,
+      "external_receipt": null
+    }
+  ],
+  "checks": [
+    {
+      "check_id": "A-01",
+      "critical": true,
+      "state": "not_run",
+      "evidence": null
+    }
+  ],
+  "approvals": [],
+  "evaluation": {
+    "case_id": null,
+    "baseline_id": null,
+    "distinct_from_tuning": false,
+    "threshold_met": false
+  },
+  "handoff": {
+    "independent_session": false,
+    "entry_verified": false,
+    "continue_verified": false,
+    "evidence": null
+  },
+  "dry_run_evidence": null,
+  "budget": {
+    "max_attempts": 2,
+    "max_tool_calls": 10,
+    "max_minutes": 30,
+    "max_cost": 5,
+    "actual_tool_calls": 0,
+    "actual_minutes": 0,
+    "actual_cost": 0,
+    "on_exhaust": "stop"
+  },
+  "declared_status": {
+    "designed": false,
+    "tested": false,
+    "human_approved": false,
+    "reuse_validated": false,
+    "handoff_validated": false
+  }
+}

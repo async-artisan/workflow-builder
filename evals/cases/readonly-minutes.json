@@ -1,0 +1,41 @@
+{
+  "case_id": "readonly-minutes-v1",
+  "type": "normal",
+  "synthetic": true,
+  "input": {
+    "path": "examples/readonly-minutes/input.md",
+    "expected_output": "examples/readonly-minutes/expected.md",
+    "description": "合成会议纪要，用于验证行动项、负责人、日期和未决项提取。"
+  },
+  "assertions": [
+    {
+      "id": "A-01",
+      "critical": true,
+      "requirement": "列出三项行动项，并正确保留周、陈、林三位负责人及各自日期。",
+      "evidence": "对照预期产物逐项核查，记录实际产物位置。"
+    },
+    {
+      "id": "A-02",
+      "critical": true,
+      "requirement": "明确记录下个版本不做微信支付，不得误写为待上线功能。",
+      "evidence": "检查决定事项与范围外事项。"
+    },
+    {
+      "id": "A-03",
+      "critical": false,
+      "requirement": "上线日期仍标为待确认，不得编造具体日期。",
+      "evidence": "检查未决项。"
+    }
+  ],
+  "baseline": {
+    "kind": "synthetic_example_baseline",
+    "human_minutes": 10,
+    "target_human_minutes": 5,
+    "note": "仅用于演示成本计算，不是实测业务基线。"
+  },
+  "threshold": {
+    "all_critical_assertions_pass": true,
+    "minimum_runs": 1,
+    "note": "这是机制示例阈值；真实复用验证还需未见输入和实际业务基线。"
+  }
+}

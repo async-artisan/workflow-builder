@@ -1,0 +1,17 @@
+{
+  "positive": [
+    "帮我把每周重复的客户汇报整理成可复用的工作流",
+    "审计这套智能体流程能否闭环，并给出证据",
+    "把这个 SOP 变成可以被不同智能体复用的 Skill",
+    "为现有流程补人工审批、失败恢复和运行记录",
+    "Design and validate an agent workflow for this recurring operations task"
+  ],
+  "negative": [
+    "直接帮我总结这份会议记录，不需要沉淀流程",
+    "写一个 GitHub Actions CI YAML",
+    "帮我搭建一个 n8n 节点，不需要设计或审计方法",
+    "解释什么是工作流",
+    "润色这段 SOP 文案，不需要改变执行方式"
+  ],
+  "notes": "正向用例应触发或允许显式调用；负向用例不应仅因出现 workflow、SOP 等词就触发完整搭建流程。宿主路由效果需要在目标智能体中实测，本文件本身不代表触发验证通过。"
+}
