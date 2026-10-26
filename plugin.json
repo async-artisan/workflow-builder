@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "agent-workflow-builder",
+  "version": "0.1.1",
+  "description": "Agent-agnostic workflow discovery, design, evaluation, SOP automation, capability composition, and human approval.",
+  "author": {
+    "name": "Async Artisan",
+    "url": "https://github.com/async-artisan"
+  },
+  "homepage": "https://github.com/async-artisan/workflow-builder#readme",
+  "repository": "https://github.com/async-artisan/workflow-builder",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "workflow-builder",
+    "agentic-workflows",
+    "sop",
+    "evaluation",
+    "human-in-the-loop",
+    "mcp",
+    "capability-composition"
+  ]
+}

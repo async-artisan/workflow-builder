@@ -15,7 +15,7 @@
 
 </div>
 
-> 最近更新：2026-10-26 ｜ 当前版本：v0.1.0。
+> 最近更新：2026-10-27 ｜ 当前版本：v0.1.1。
 
 ## 目录
 
@@ -94,7 +94,18 @@ npx skills add async-artisan/workflow-builder
 
 ### 通过 Release ZIP 安装
 
-从 [Releases](https://github.com/async-artisan/workflow-builder/releases) 下载 `workflow-builder-v0.1.0.zip`，解压后将 `workflow-builder` 目录放入下表对应的 Skills 目录。ZIP 附带 SHA-256 文件，可在安装前核验下载完整性。
+从 [Releases](https://github.com/async-artisan/workflow-builder/releases) 下载 `workflow-builder-v0.1.1.zip`，解压后将 `workflow-builder` 目录放入下表对应的 Skills 目录。ZIP 附带 SHA-256 文件，可在安装前核验下载完整性。
+
+### 构建 Codex / ChatGPT 插件包
+
+本项目同时提供 Agent Plugins 1.0 清单和构建脚本，不需要 MCP：
+
+```bash
+python scripts/build_plugin.py --check
+python scripts/build_plugin.py
+```
+
+生成的 `dist/agent-workflow-builder-v0.1.1-plugin.zip` 在根目录包含 `plugin.json`，并将 Skill 放在 `skills/workflow-builder/`。本地结构验证不等于 OpenAI 官方扫描、目录审核或发布批准；提交前仍需完成发布者验证和 [官方提交流程](https://developers.openai.com/apps-sdk/deploy/submission/)。
 
 ### 支持 Agent Skills 的宿主
 

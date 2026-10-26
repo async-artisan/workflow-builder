@@ -15,7 +15,7 @@ English | [简体中文](README.md)
 
 </div>
 
-> Last updated: 2026-10-26 ｜ Current version: v0.1.0.
+> Last updated: 2026-10-27 ｜ Current version: v0.1.1.
 
 ## Contents
 
@@ -94,7 +94,18 @@ The repository has been verified to expose `workflow-builder` through this comma
 
 ### Install from the Release ZIP
 
-Download `workflow-builder-v0.1.0.zip` from [Releases](https://github.com/async-artisan/workflow-builder/releases), extract it, and place the `workflow-builder` directory in the appropriate Skills directory below. A SHA-256 file is included for download integrity verification.
+Download `workflow-builder-v0.1.1.zip` from [Releases](https://github.com/async-artisan/workflow-builder/releases), extract it, and place the `workflow-builder` directory in the appropriate Skills directory below. A SHA-256 file is included for download integrity verification.
+
+### Build a Codex / ChatGPT plugin package
+
+The repository includes an Agent Plugins 1.0 manifest and build script. No MCP server is required:
+
+```bash
+python scripts/build_plugin.py --check
+python scripts/build_plugin.py
+```
+
+The generated `dist/agent-workflow-builder-v0.1.1-plugin.zip` contains `plugin.json` at its root and places the Skill under `skills/workflow-builder/`. Local structural validation is not OpenAI portal scanning, directory review, or publishing approval. Complete publisher verification and the [official submission flow](https://developers.openai.com/apps-sdk/deploy/submission/) before submission.
 
 ### Hosts that support Agent Skills
 

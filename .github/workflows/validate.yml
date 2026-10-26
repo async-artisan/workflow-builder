@@ -28,3 +28,8 @@ jobs:
         run: |
           python scripts/sop_to_skill.py examples/readonly-minutes/workflow.sop.md --output-dir build
           test -s build/readonly-minutes/SKILL.md
+      - name: Build and validate Agent Plugins package
+        run: |
+          python scripts/build_plugin.py --check
+          python scripts/build_plugin.py --output build/agent-workflow-builder-plugin.zip
+          python scripts/build_plugin.py --validate-zip build/agent-workflow-builder-plugin.zip
