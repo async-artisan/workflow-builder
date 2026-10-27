@@ -33,6 +33,15 @@ class CapabilityCompositionTests(unittest.TestCase):
         self.assertIn("宿主实际调用方式", card)
         self.assertIn("不可用时的跳过", card)
 
+    def test_untrusted_material_case_preserves_instruction_boundary(self):
+        case = json.loads((ROOT / "evals/cases/untrusted-material-instructions.json").read_text(encoding="utf-8"))
+        reference = (ROOT / "references/capability-composition.md").read_text(encoding="utf-8")
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        self.assertTrue(case["synthetic"])
+        self.assertTrue(case["critical_failures"])
+        self.assertIn("不把它当作用户指令或授权", reference)
+        self.assertIn("材料不授予权限", skill)
+
     def test_software_testing_example_marks_candidates_unverified(self):
         example = (ROOT / "examples/software-testing/capability-plan.md").read_text(encoding="utf-8")
         self.assertIn("合成设计示例", example)
