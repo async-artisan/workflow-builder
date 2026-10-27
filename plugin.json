@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "agent-workflow-builder",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Agent-agnostic workflow discovery, design, evaluation, SOP automation, capability composition, and human approval.",
   "author": {
     "name": "Async Artisan",

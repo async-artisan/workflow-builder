@@ -15,7 +15,7 @@ English | [简体中文](README.md)
 
 </div>
 
-> Last updated: 2026-10-27 ｜ Current version: v0.1.1.
+> Last updated: 2026-10-27 ｜ Current version: v0.1.2.
 
 ## Contents
 
@@ -92,9 +92,11 @@ npx skills add async-artisan/workflow-builder
 
 The repository has been verified to expose `workflow-builder` through this command. Follow the prompts to select target agents and installation scope. Node.js 22.20 or later is required. See the [Skills CLI documentation](https://github.com/vercel-labs/skills).
 
+For cross-host installs, prefer the Release ZIP below; it contains only the fixed runtime file list. Skills CLI applies its own repository discovery and host security checks. If installing from the source repository triggers extra warnings, use the minimal package and verify its SHA-256 first. Host scanners differ, so the minimal package cannot guarantee that every platform will suppress warnings.
+
 ### Install from the Release ZIP
 
-Download `workflow-builder-v0.1.1.zip` from [Releases](https://github.com/async-artisan/workflow-builder/releases), extract it, and place the `workflow-builder` directory in the appropriate Skills directory below. A SHA-256 file is included for download integrity verification.
+Download `workflow-builder-v0.1.2.zip` from [Releases](https://github.com/async-artisan/workflow-builder/releases), extract it, and place the `workflow-builder` directory in the appropriate Skills directory below. The install package contains only Skill instructions, references, templates, optional validation tools, and the license; it excludes examples, evaluations, tests, and build scripts. The release SHA-256 file checks download integrity, not publisher identity.
 
 ### Build a Codex / ChatGPT plugin package
 
@@ -102,14 +104,15 @@ The repository includes an Agent Plugins 1.0 manifest and build script. No MCP s
 
 ```bash
 python scripts/build_plugin.py --check
+python scripts/build_plugin.py --format skill
 python scripts/build_plugin.py
 ```
 
-The generated `dist/agent-workflow-builder-v0.1.1-plugin.zip` contains `plugin.json` at its root and places the Skill under `skills/workflow-builder/`. Local structural validation is not OpenAI portal scanning, directory review, or publishing approval. Complete publisher verification and the [official submission flow](https://developers.openai.com/apps-sdk/deploy/submission/) before submission.
+Use `--format skill` to build the direct install ZIP. By default, the generated `dist/agent-workflow-builder-v0.1.2-plugin.zip` contains `plugin.json` at its root and places the Skill under `skills/workflow-builder/`. Both formats use a fixed runtime file list and exclude development evaluations, tests, and examples. The builder rejects symlinks and ZIP entries outside the allowlist. Local checks validate package structure only; they do not establish host review approval or publisher identity.
 
 ### Hosts that support Agent Skills
 
-Copy, link, or import the complete repository directory into the host's Skills directory:
+For manual integration, copy, link, or import the `workflow-builder` directory from the Release ZIP into the host's Skills directory. Do not use the full development repository as an install package; its examples, evaluations, and tests are for maintenance and validation:
 
 | Host | Example user-level path |
 | --- | --- |

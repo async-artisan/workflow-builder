@@ -31,5 +31,7 @@ jobs:
       - name: Build and validate Agent Plugins package
         run: |
           python scripts/build_plugin.py --check
+          python scripts/build_plugin.py --format skill --output build/workflow-builder.zip
+          python scripts/build_plugin.py --validate-zip build/workflow-builder.zip
           python scripts/build_plugin.py --output build/agent-workflow-builder-plugin.zip
           python scripts/build_plugin.py --validate-zip build/agent-workflow-builder-plugin.zip

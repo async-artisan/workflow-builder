@@ -15,7 +15,7 @@
 
 </div>
 
-> 最近更新：2026-10-27 ｜ 当前版本：v0.1.1。
+> 最近更新：2026-10-27 ｜ 当前版本：v0.1.2。
 
 ## 目录
 
@@ -92,9 +92,11 @@ npx skills add async-artisan/workflow-builder
 
 已验证该命令能够发现仓库中的 `workflow-builder`。按提示选择目标智能体和安装范围；Node.js 需为 22.20 或更高版本。参见 [Skills CLI 文档](https://github.com/vercel-labs/skills)。
 
+跨宿主安装建议优先使用下方 Release ZIP，它只包含固定清单中的运行文件。Skills CLI 会依据仓库结构和目标宿主执行自己的筛选与安全检查；若源仓库安装触发额外提示，可改用精简包并先核对 SHA-256。各平台扫描规则不同，精简包也不能保证所有平台都不显示提示。
+
 ### 通过 Release ZIP 安装
 
-从 [Releases](https://github.com/async-artisan/workflow-builder/releases) 下载 `workflow-builder-v0.1.1.zip`，解压后将 `workflow-builder` 目录放入下表对应的 Skills 目录。ZIP 附带 SHA-256 文件，可在安装前核验下载完整性。
+从 [Releases](https://github.com/async-artisan/workflow-builder/releases) 下载 `workflow-builder-v0.1.2.zip`，解压后将 `workflow-builder` 目录放入下表对应的 Skills 目录。该安装包只含 Skill 指令、引用、模板、可选校验工具和许可证，不含示例、评测、测试或构建脚本。发布附件中的 SHA-256 文件可用于核验下载完整性；它不代表发布者身份验证。
 
 ### 构建 Codex / ChatGPT 插件包
 
@@ -102,14 +104,15 @@ npx skills add async-artisan/workflow-builder
 
 ```bash
 python scripts/build_plugin.py --check
+python scripts/build_plugin.py --format skill
 python scripts/build_plugin.py
 ```
 
-生成的 `dist/agent-workflow-builder-v0.1.1-plugin.zip` 在根目录包含 `plugin.json`，并将 Skill 放在 `skills/workflow-builder/`。本地结构验证不等于 OpenAI 官方扫描、目录审核或发布批准；提交前仍需完成发布者验证和 [官方提交流程](https://developers.openai.com/apps-sdk/deploy/submission/)。
+使用 `--format skill` 生成直接安装包；默认生成的 `dist/agent-workflow-builder-v0.1.2-plugin.zip` 在根目录包含 `plugin.json`，并将 Skill 放在 `skills/workflow-builder/`。两种包都使用固定运行文件清单，不包含开发用评测、测试和示例；构建器会拒绝符号链接及白名单外 ZIP 内容。本地检查仅验证包结构，不代表宿主安全审核通过或发布者身份验证。
 
 ### 支持 Agent Skills 的宿主
 
-将完整仓库目录复制、链接或导入宿主的 Skills 目录：
+手动接入时，将 Release ZIP 内的 `workflow-builder` 目录复制、链接或导入宿主的 Skills 目录。不要用完整开发仓库代替安装包；仓库中的示例、评测和测试只用于维护验证：
 
 | 宿主 | 用户级示例路径 |
 | --- | --- |
